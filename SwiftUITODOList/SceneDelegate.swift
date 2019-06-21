@@ -10,19 +10,17 @@ import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let window = UIWindow(frame: UIScreen.main.bounds)
         var todoItemData = [TodoItem]()
         for i in 0..<10 {
             todoItemData.append(TodoItem(body: "Item \(i)"))
         }
-        window.rootViewController = UIHostingController(rootView: TodoListView(todoItemData: todoItemData))
-        self.window = window
-        window.makeKeyAndVisible()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UIHostingController(rootView: TodoListView(todoItemData: todoItemData))
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

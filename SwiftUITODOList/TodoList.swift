@@ -28,15 +28,27 @@ struct TodoItemRow: View {
 
 struct TodoListView: View {
     @State var todoItemData: [TodoItem]
+    @State var newTodoItemDescription: String = ""
+    
     var body: some View {
         return NavigationView {
+            HStack {
+                TextField($newTodoItemDescription,
+                          placeholder: Text("Add a new item"))
+                Button(action: {
+                    // Closure will be called once user taps your button
+                    self.createNewTodoItem()
+                }) {
+                    Text("Add")
+                }.disabled(!isTextFieldValid())
+            }.padding(20)
+            
             List {
                 ForEach(todoItemData) { todoItem in
                     TodoItemRow(todoItem: todoItem)
                         .tapAction { todoItem.toggleStatus() }
                     }.onMove(perform: move)
                     .onDelete(perform: delete)
-                
                 }
                 .navigationBarTitle(Text("ToDo List"), displayMode: .large)
                 .navigationBarItems(trailing:  EditButton())
@@ -59,6 +71,16 @@ struct TodoListView: View {
             // for each item, remove it and insert it at the destination
             todoItemData.insert(todoItemData.remove(at: index), at: destination)
         }
+    }
+    
+    func createNewTodoItem() {
+        guard isTextFieldValid() else { return }
+        todoItemData.append(TodoItem(body: $newTodoItemDescription.value))
+        $newTodoItemDescription.value = ""
+    }
+    
+    private func isTextFieldValid() -> Bool {
+        return !$newTodoItemDescription.value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 
