@@ -1,5 +1,5 @@
 //
-//  TodoItem.swift
+//  TaskItem.swift
 //  SwiftUITODOList
 //
 //  Created by Deborah Newberry on 6/20/19.
@@ -9,8 +9,8 @@
 import SwiftUI
 import Combine
 
-final class TodoItem: BindableObject {
-    let didChange = PassthroughSubject<TodoItem, Never>()
+final class TaskItem: BindableObject {
+    let didChange = PassthroughSubject<TaskItem, Never>()
     
     var id = UUID()
     let body: String

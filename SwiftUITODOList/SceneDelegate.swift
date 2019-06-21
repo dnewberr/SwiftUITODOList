@@ -11,15 +11,17 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var dataStack = CoreDataStack()
+    
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        var todoItemData = [TodoItem]()
-        for i in 0..<10 {
-            todoItemData.append(TodoItem(body: "Item \(i)"))
-        }
+        var taskData = [Task]()
+//        for i in 0..<10 {
+//            todoItemData.append(Task(body: "Item \(i)"))
+//        }
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UIHostingController(rootView: TodoListView(todoItemData: todoItemData))
+        window?.rootViewController = UIHostingController(rootView: TaskListView(data: taskData))
         window?.makeKeyAndVisible()
     }
 
@@ -50,7 +52,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 
